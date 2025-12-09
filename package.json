@@ -1,0 +1,36 @@
+{
+  "name": "transit-assistant",
+  "version": "1.0.0",
+  "description": "Bay Area Transit Assistant chatbot using Pinnacle RCS",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "update-db": "./update-db.sh"
+  },
+  "keywords": [
+    "rcs",
+    "transit",
+    "chatbot",
+    "pinnacle",
+    "bay-area"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "rcs-js": "^2.0.4",
+    "better-sqlite3": "^9.2.2",
+    "gtfs-realtime-bindings": "^1.1.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.10.6",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
