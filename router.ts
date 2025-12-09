@@ -36,13 +36,6 @@ varoomRouter.post('/', async (req: Request, res: Response) => {
     if (message.type === 'RCS_TEXT') {
       return handleTextMessage(from, message.text, res);
     }
-
-    // Unknown message type
-    console.error('[Varoom]: Unknown message type', message);
-    return res.status(400).json({
-      error: 'Unknown message type',
-      received: message,
-    });
   } catch (error) {
     console.error('[Varoom]: Internal server error', error);
     return res.status(500).json({
