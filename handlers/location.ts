@@ -21,7 +21,7 @@ export async function handleLocation(
       if (!route) {
         console.error('[Varoom]: Route not found', pendingRouteQuery);
         await agent.sendMessage(from, `Route ${pendingRouteQuery.toUpperCase()} not found.`);
-        return res.status(404).json({ message: 'Route not found' });
+        return res.status(200).json({ message: 'Route not found' });
       }
 
       // Get all stops within 2 miles (no max limit - filter by radius only)
@@ -36,7 +36,7 @@ export async function handleLocation(
       if (!AGENCY_NAMES[route.agency_id]) {
         console.error('[Varoom]: Unsupported agency', route.agency_id);
         await agent.sendMessage(from, `Agency "${route.agency_id}" is not supported.`);
-        return res.status(501).json({ message: 'Unsupported agency' });
+        return res.status(200).json({ message: 'Unsupported agency' });
       }
 
       // Take top 3 closest stops
