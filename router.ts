@@ -1,12 +1,15 @@
 import { Router, Request, Response } from 'express';
-import { RequestWithMessageEvent } from './lib/types';
 import { handleButtonClick, handleTextMessage, handleLocation } from './handlers';
+import { rcsClient } from './lib/rcsClient';
 
 const varoomRouter = Router();
 
 varoomRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const messageEvent = (req as RequestWithMessageEvent).messageEvent;
+    const messageEvent = await rcsClient.messages.process(req);
+    if (!('message' in messageEvent)) {
+      return res.status(200).json({ message: 'No message found' });
+    }
     const message = messageEvent.message;
     const from = messageEvent.conversation.from;
 

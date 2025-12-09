@@ -22,34 +22,58 @@ A Bay Area transit chatbot built with Pinnacle RCS that provides real-time trans
 
 1. Clone this repository
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Copy the example environment file and configure it:
+
    ```bash
    cp .env.example .env
    ```
 
 4. Edit `.env` and add your API keys:
+
    - `PINNACLE_API_KEY`: Your Pinnacle API key
-   - `PINNACLE_AGENT_NAME`: Your RCS agent name
+   - `PINNACLE_AGENT_ID`: Your RCS agent ID
+   - `PINNACLE_SIGNING_SECRET`: Your webhook signing secret (found in the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks))
    - `API_511_KEY`: Your 511.org API key
    - `MAPBOX_API_KEY`: Your Mapbox API key
 
 5. Download and import GTFS data:
+
    ```bash
    npm run update-db
    ```
 
+6. Set up a public HTTPS URL for your webhook. For local development, you can use a tunneling service like [ngrok](https://ngrok.com):
+
+   ```bash
+   ngrok http 3000
+   ```
+
+   For production, deploy to your preferred hosting provider.
+
+7. Connect your webhook to your RCS agent:
+
+   - Go to the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks)
+   - Add your public URL with the `/webhook` path (e.g., `https://your-domain.com/webhook`)
+   - Select your RCS agent to receive messages at this endpoint
+   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`
+
+8. Text "MENU" to the bot to see the main menu.
+
 ## Usage
 
 ### Development
+
 ```bash
 npm run dev
 ```
 
 ### Production
+
 ```bash
 npm run build
 npm start

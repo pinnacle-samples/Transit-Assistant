@@ -1,18 +1,18 @@
 import { rcsClient } from './rcsClient';
-import { Pinnacle } from 'rcs-js';
+import { PinnacleClient } from 'rcs-js';
 
-if (!process.env.PINNACLE_AGENT_NAME) {
-  throw new Error('PINNACLE_AGENT_NAME environment variable is required');
+if (!process.env.PINNACLE_AGENT_ID) {
+  throw new Error('PINNACLE_AGENT_ID environment variable is required');
 }
 
 export class BaseAgent {
-  protected readonly client: Pinnacle;
+  protected readonly client: PinnacleClient;
   protected readonly agentName: string;
   protected readonly TEST_MODE: boolean;
 
   constructor() {
     this.client = rcsClient;
-    this.agentName = process.env.PINNACLE_AGENT_NAME!;
+    this.agentName = process.env.PINNACLE_AGENT_ID!;
     this.TEST_MODE = process.env.TEST_MODE === 'true';
   }
 
@@ -22,6 +22,7 @@ export class BaseAgent {
       from: this.agentName,
       to: to,
       text,
+      quickReplies: [],
       options: { test_mode: this.TEST_MODE },
     });
   }
