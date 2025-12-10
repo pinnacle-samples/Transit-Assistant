@@ -108,7 +108,7 @@ PINNACLE_AGENT_ID=your_agent_id_here
 PINNACLE_SIGNING_SECRET=your_signing_secret_here
 API_511_KEY=your_511_api_key_here
 MAPBOX_API_KEY=your_mapbox_api_key_here
-TEST_MODE=true
+TEST_MODE=false
 PORT=3000
 ```
 
