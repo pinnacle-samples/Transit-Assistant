@@ -2,6 +2,8 @@
 
 A Bay Area transit chatbot built with Pinnacle RCS that provides real-time transit information for all major Bay Area transit agencies.
 
+<video src="https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/varoom.mp4" controls width="300"></video>
+
 ## Features
 
 - **Stop Arrivals**: Get real-time arrival times for any transit stop by typing `stop [id]`
@@ -120,7 +122,3 @@ npm start
 ## Environment Variables
 
 See `.env.example` for a complete list of required and optional environment variables.
-
-## License
-
-MIT
