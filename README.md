@@ -121,3 +121,9 @@ npm start
 ## Environment Variables
 
 See `.env.example` for a complete list of required and optional environment variables.
+
+## Resources
+
+- **Dashboard**: Visit [Pinnacle Dashboard](https://app.pinnacle.sh)
+- **Documentation**: Visit [Pinnacle Documentation](https://docs.pinnacle.sh)
+- **Support**: Email [founders@trypinnacle.app](mailto:founders@trypinnacle.app)
