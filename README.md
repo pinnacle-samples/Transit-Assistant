@@ -2,7 +2,7 @@
 
 A Bay Area transit chatbot built with Pinnacle RCS that provides real-time transit information for all major Bay Area transit agencies.
 
-[View Demo Video](https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/varoom.mp4)
+<a href="https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/varoom.mp4" target="_blank">View Demo Video</a>
 
 ## Features
 
