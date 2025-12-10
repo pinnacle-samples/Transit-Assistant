@@ -6,8 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "tsx server.ts",
     "update-db": "./update-db.sh"
   },
   "keywords": [

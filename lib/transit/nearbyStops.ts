@@ -49,7 +49,17 @@ export async function findNearestStops(
               };
             };
           };
-        } = await response.json();
+        } = (await response.json()) as {
+          ServiceDelivery: {
+            StopMonitoringDelivery: {
+              MonitoredStopVisit: {
+                MonitoredVehicleJourney: {
+                  PublishedLineName: string;
+                };
+              };
+            };
+          };
+        };
         const monitoredStopVisits =
           data?.ServiceDelivery?.StopMonitoringDelivery?.MonitoredStopVisit;
 
