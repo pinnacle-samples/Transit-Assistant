@@ -36,6 +36,8 @@ varoomRouter.post('/', async (req: Request, res: Response) => {
     if (message.type === 'RCS_TEXT') {
       return handleTextMessage(from, message.text, res);
     }
+
+    return res.status(200).json({ message: 'No message found' });
   } catch (error) {
     console.error('[Varoom]: Internal server error', error);
     return res.status(500).json({
