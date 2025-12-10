@@ -1,6 +1,7 @@
 # Transit Assistant
 
 A Bay Area transit RCS chatbot that provides real-time transit information for all major Bay Area transit agencies through Rich Communication Services (RCS) messaging.
+
 https://github.com/user-attachments/assets/074fb330-293a-4e9d-af82-c8757de56f92
 
 ## Features
