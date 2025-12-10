@@ -1,48 +1,116 @@
 # Transit Assistant
 
-A Bay Area transit chatbot built with Pinnacle RCS that provides real-time transit information for all major Bay Area transit agencies.
-
+A Bay Area transit RCS chatbot that provides real-time transit information for all major Bay Area transit agencies through Rich Communication Services (RCS) messaging.
 https://github.com/user-attachments/assets/074fb330-293a-4e9d-af82-c8757de56f92
 
 ## Features
 
-- **Stop Arrivals**: Get real-time arrival times for any transit stop by typing `stop [id]`
-- **Route Search**: Find the nearest stops for a route by typing `route [name]` and sharing your location
-- **Nearby Stops**: Share your location to discover transit stops near you
-- **Live Vehicle Tracking**: See real-time vehicle positions on maps for supported routes
-- **Recent Views**: Quick access to your recently viewed stops and routes
-- **Multi-Agency Support**: Supports SF Muni, AC Transit, BART, Caltrain, Golden Gate Transit, SamTrans, and VTA
+### Stop Arrivals
 
-## Prerequisites
+- Get real-time arrival times for any transit stop
+- Type `stop [id]` to view arrivals
+- Live departure countdown
 
-- Node.js 18 or higher
-- A Pinnacle API key (get one at [trypinnacle.app](https://trypinnacle.app))
+### Route Search
+
+- Find the nearest stops for a route
+- Type `route [name]` and share your location
+- View stop details and distances
+
+### Nearby Stops
+
+- Share your location to discover transit stops near you
+- See all nearby stops across agencies
+- Quick access to arrival times
+
+### Live Vehicle Tracking
+
+- See real-time vehicle positions on maps
+- Supported for select routes
+
+### Recent Views
+
+- Quick access to recently viewed stops and routes
+- Convenient navigation history
+
+### Multi-Agency Support
+
+- **SF**: San Francisco Municipal Transportation Agency (Muni)
+- **AC**: AC Transit
+- **BA**: Bay Area Rapid Transit (BART)
+- **CM**: Caltrain
+- **GG**: Golden Gate Transit
+- **SC**: SamTrans
+- **VT**: Santa Clara Valley Transportation Authority (VTA)
+
+## Project Structure
+
+```
+Transit-Assistant/
+├── lib/
+│   ├── types.ts              # Shared TypeScript interfaces
+│   ├── rcsClient.ts          # Pinnacle RCS client configuration
+│   ├── baseAgent.ts          # Base agent class with common functionality
+│   ├── agent.ts              # Transit agent implementation
+│   └── transit/
+│       ├── arrivals.ts       # Fetch real-time arrival data
+│       ├── nearbyStops.ts    # Find stops near a location
+│       ├── util.ts           # 511 API integration utilities
+│       └── types.ts          # Transit-specific types
+├── handlers/
+│   ├── index.ts              # Handler exports
+│   ├── text.ts               # Text message handler
+│   ├── button.ts             # Button click handler
+│   └── location.ts           # Location sharing handler
+├── cache/
+│   ├── gtfsCache.ts          # GTFS data caching
+│   ├── import-gtfs.ts        # GTFS import utilities
+│   └── schema.sql            # Database schema
+├── router.ts                 # Express router for webhook handling
+├── update-db.sh              # Database update script
+├── package.json              # Project dependencies
+├── tsconfig.json             # TypeScript configuration
+├── .env.example              # Environment variables template
+└── .gitignore                # Git ignore rules
+```
+
+## Setup
+
+### Prerequisites
+
+- Node.js 18+
+- A Pinnacle API account
+- RCS agent configured in Pinnacle
 - A 511 API key for Bay Area transit data (get one at [511.org](https://511.org))
 - A Mapbox API key for map visualization (get one at [mapbox.com](https://mapbox.com))
 
-## Installation
+### Installation
 
-1. Clone this repository
+1. Clone the repository
+
 2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Copy the example environment file and configure it:
+3. Create a `.env` file based on `.env.example`:
 
    ```bash
    cp .env.example .env
    ```
 
-4. Edit `.env` and add your API keys:
+4. Configure your environment variables in `.env`:
 
-   - `PINNACLE_API_KEY`: Your Pinnacle API key
-   - `PINNACLE_AGENT_ID`: Your RCS agent ID
-   - `PINNACLE_SIGNING_SECRET`: Your webhook signing secret (found in the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks))
-   - `API_511_KEY`: Your 511.org API key
-   - `MAPBOX_API_KEY`: Your Mapbox API key
-   - `TEST_MODE`: Set to `true` for sending with a test agent
+```env
+PINNACLE_API_KEY=your_api_key_here
+PINNACLE_AGENT_ID=your_agent_id_here
+PINNACLE_SIGNING_SECRET=your_signing_secret_here
+API_511_KEY=your_511_api_key_here
+MAPBOX_API_KEY=your_mapbox_api_key_here
+TEST_MODE=true
+PORT=3000
+```
 
 5. Download and import GTFS data:
 
@@ -63,23 +131,37 @@ https://github.com/user-attachments/assets/074fb330-293a-4e9d-af82-c8757de56f92
    - Go to the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks)
    - Add your public URL with the `/webhook` path (e.g., `https://your-domain.com/webhook`)
    - Select your RCS agent to receive messages at this endpoint
-   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method automatically uses this environment variable to verify the request signature.
+   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method uses this environment variable to verify the request signature.
 
 8. Text "MENU" to the bot to see the main menu.
 
-## Usage
+### Running the Application
 
-### Development
+Development mode with auto-reload:
 
 ```bash
 npm run dev
 ```
 
-### Production
+Production mode:
 
 ```bash
 npm start
 ```
+
+## Configuration
+
+### Environment Variables
+
+| Variable                  | Description                                                            | Required            |
+| ------------------------- | ---------------------------------------------------------------------- | ------------------- |
+| `PINNACLE_API_KEY`        | Your Pinnacle API key                                                  | Yes                 |
+| `PINNACLE_AGENT_ID`       | Your RCS agent ID from Pinnacle Dashboard                              | Yes                 |
+| `PINNACLE_SIGNING_SECRET` | Webhook signing secret for verification                                | Yes                 |
+| `API_511_KEY`             | Your 511.org API key                                                   | Yes                 |
+| `MAPBOX_API_KEY`          | Your Mapbox API key                                                    | Yes                 |
+| `TEST_MODE`               | Set to `true` for sending with a test RCS agent to whitelisted numbers | No (default: false) |
+| `PORT`                    | Server port                                                            | No (default: 3000)  |
 
 ## How to Use the Chatbot
 
@@ -90,38 +172,21 @@ npm start
 - Click "Recently Viewed" to see your recent searches
 - Click "Help" for more information
 
-## Supported Transit Agencies
+## Technologies
 
-- **SF**: San Francisco Municipal Transportation Agency (Muni)
-- **AC**: AC Transit
-- **BA**: Bay Area Rapid Transit (BART)
-- **CM**: Caltrain
-- **GG**: Golden Gate Transit
-- **SC**: SamTrans
-- **VT**: Santa Clara Valley Transportation Authority (VTA)
+- **TypeScript**: Type-safe development
+- **Express**: Web framework for webhook handling
+- **rcs-js**: Pinnacle RCS SDK v2.0.6+
+- **better-sqlite3**: Local database for GTFS data
+- **tsx**: TypeScript execution and hot-reload
 
-## Architecture
+## Support
 
-- `/lib/shared/`: Shared utilities and base classes
-  - `types.ts`: TypeScript interfaces and types
-  - `rcsClient.ts`: Pinnacle RCS client initialization
-  - `baseAgent.ts`: Base agent class with common functionality
-- `/lib/agent.ts`: Main agent implementation with messaging logic
-- `/lib/transit/`: Transit-specific functionality
-  - `arrivals.ts`: Fetch real-time arrival data
-  - `nearbyStops.ts`: Find stops near a location
-  - `util.ts`: 511 API integration utilities
-  - `types.ts`: Transit-specific types
-- `/handlers/`: Message event handlers
-  - `text.ts`: Text message handler
-  - `button.ts`: Button click handler
-  - `location.ts`: Location sharing handler
-- `/cache/`: GTFS data caching and management
-- `router.ts`: Express router for webhook handling
+For issues related to:
 
-## Environment Variables
-
-See `.env.example` for a complete list of required and optional environment variables.
+- RCS functionality: Contact Pinnacle support
+- Chatbot implementation: Refer to the code documentation
+- Configuration: Check the `.env.example` file
 
 ## Resources
 
