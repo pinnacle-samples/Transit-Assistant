@@ -48,7 +48,6 @@ https://github.com/user-attachments/assets/074fb330-293a-4e9d-af82-c8757de56f92
 ```
 Transit-Assistant/
 ├── lib/
-│   ├── types.ts              # Shared TypeScript interfaces
 │   ├── rcsClient.ts          # Pinnacle RCS client configuration
 │   ├── baseAgent.ts          # Base agent class with common functionality
 │   ├── agent.ts              # Transit agent implementation
@@ -66,6 +65,7 @@ Transit-Assistant/
 │   ├── gtfsCache.ts          # GTFS data caching
 │   ├── import-gtfs.ts        # GTFS import utilities
 │   └── schema.sql            # Database schema
+├── server.ts                 # Main Express server
 ├── router.ts                 # Express router for webhook handling
 ├── update-db.sh              # Database update script
 ├── package.json              # Project dependencies
