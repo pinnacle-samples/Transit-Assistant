@@ -42,6 +42,7 @@ https://github.com/user-attachments/assets/074fb330-293a-4e9d-af82-c8757de56f92
    - `PINNACLE_SIGNING_SECRET`: Your webhook signing secret (found in the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks))
    - `API_511_KEY`: Your 511.org API key
    - `MAPBOX_API_KEY`: Your Mapbox API key
+   - `TEST_MODE`: Set to `true` for sending with a test agent
 
 5. Download and import GTFS data:
 
